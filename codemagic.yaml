@@ -10,20 +10,16 @@ workflows:
         script: |
           pwd
           ls -la
-      - name: Install deps
+      - name: Install deps (no lockfile required)
         script: |
-          # Use lockfile if present; otherwise fall back to npm install
-          if [ -f package-lock.json ]; then
-            echo "Found package-lock.json -> npm ci"
-            npm ci
-          else
-            echo "No package-lock.json at $(pwd) -> npm install"
-            npm install
-          fi
+          npm install
       - name: Capacitor sync
         script: |
           npx cap add android || true
           npx cap sync android
+      - name: Make Gradle wrapper executable
+        script: |
+          chmod +x android/gradlew
       - name: Build Android debug APK
         script: |
           cd android
