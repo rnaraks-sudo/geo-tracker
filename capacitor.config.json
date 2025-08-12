@@ -1,0 +1,7 @@
+{
+  "appId": "si.twomobile.tracker",
+  "appName": "Tracker+CO2",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": { "androidScheme": "https" }
+}
