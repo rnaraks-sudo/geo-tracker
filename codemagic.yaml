@@ -6,11 +6,11 @@ workflows:
     environment:
       node: 18.19.0
     scripts:
-      - name: Debug: show working dir & files
+      - name: Debug list files
         script: |
           pwd
           ls -la
-      - name: Install deps (no lockfile required)
+      - name: Install deps (no lockfile)
         script: |
           npm install
       - name: Capacitor sync
