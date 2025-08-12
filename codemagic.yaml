@@ -4,11 +4,22 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m2
     environment:
-      node: 18.19.0      # lock Node to avoid surprises
+      node: 18.19.0
     scripts:
+      - name: Debug: show working dir & files
+        script: |
+          pwd
+          ls -la
       - name: Install deps
         script: |
-          npm ci
+          # Use lockfile if present; otherwise fall back to npm install
+          if [ -f package-lock.json ]; then
+            echo "Found package-lock.json -> npm ci"
+            npm ci
+          else
+            echo "No package-lock.json at $(pwd) -> npm install"
+            npm install
+          fi
       - name: Capacitor sync
         script: |
           npx cap add android || true
